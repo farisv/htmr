@@ -316,3 +316,25 @@ Array [
   </span>,
 ]
 `;
+
+exports[`inject attribute to script and iframe tag 1`] = `
+Array [
+  <script
+    nonce="1234"
+    src="x"
+    type="text/javascript"
+  />,
+  <script
+    nonce="1234"
+  >
+    alert(1)
+  </script>,
+  <b>
+    Do not inject me
+  </b>,
+  <iframe
+    sandbox=""
+    src="x"
+  />,
+]
+`;

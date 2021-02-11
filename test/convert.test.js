@@ -276,6 +276,26 @@ test('svg viewbox', () => {
   testRender(svg);
 });
 
+test('inject attribute to script and iframe tag', () => {
+  const html = [
+    '<script src="x" type="text/javascript"></script>',
+    '<script>alert(1)</script>',
+    '<b>Do not inject me</b>',
+    '<iframe src="x"></iframe>'
+  ].join('');
+
+  testRender(html, {
+    injectAttributes: {
+      script: {
+        'nonce': '1234'
+      },
+      iframe: {
+        'sandbox': ''
+      },
+    },
+  });
+});
+
 expect.extend({
   toRenderConsistently({ server, browser }, html) {
     const serverRender = renderer.create(server);
