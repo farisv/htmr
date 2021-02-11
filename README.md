@@ -31,6 +31,7 @@ The API also accepts second argument `options` containing few optional fields. B
 const options = {
   transform: {},
   preserveAttributes: [],
+  injectAttributes: {},
   dangerouslySetChildren: ['style'],
 };
 htmr(html, options);
@@ -104,6 +105,23 @@ For example you want to make sure `ng-if`, `v-if` and `v-for` to be rendered as 
 
 ```js
 htmr(html, { preserveAttributes: ['ng-if', new RegExp('v-')] });
+```
+
+### injectAttributes
+
+You can inject custom attribute to certain tags by passing `injectAttributes` options. This is useful in certain situations such as when you want to inject [CSP nonce](https://developers.google.com/web/fundamentals/security/csp#if_you_absolutely_must_use_it_) to all `script` tags or inject [sandbox attribute](https://html.com/attributes/iframe-sandbox/) to all `iframe` tags.
+
+```js
+const injectAttributesConfig = {
+  script: {
+    nonce: 'EDNnf03nceIOfn39fn3e9h3sdfa',
+  },
+  iframe: {
+    sandbox: '',
+  },
+};
+
+htmr(html, { injectAttributes: injectAttributesConfig });
 ```
 
 ### dangerouslySetChildren
