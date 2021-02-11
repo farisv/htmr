@@ -44,6 +44,11 @@ function transform(node: Node, key: string, options: HtmrOptions): ReactNode {
         { key }
       );
 
+      // if the tag should be injected with custom attribute
+      if (options.injectAttributes.hasOwnProperty(name)) {
+        Object.assign(props, options.injectAttributes[name]);
+      }
+
       const customElement = options.transform[name];
 
       // if the tags children should be set dangerously
@@ -109,6 +114,7 @@ export default function convertServer(html: string, options: Partial<HtmrOptions
   const opts: HtmrOptions = {
     transform: options.transform || {},
     preserveAttributes: options.preserveAttributes || [],
+    injectAttributes: options.injectAttributes || {},
     dangerouslySetChildren: options.dangerouslySetChildren || ["style"],
   };
 

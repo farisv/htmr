@@ -11,9 +11,16 @@ type DefaultTransform = {
   _: <P>(element: string | HTMLTags | SVGTags, props?: P, children?: ReactNode) => ReactNode
 }
 
+type InjectedAttributes = {
+  [tag in HTMLTags]: {
+    [key: string]: any
+  }
+}
+
 export type HtmrOptions = {
   transform: Partial<HTMLTransform & DefaultTransform>,
   preserveAttributes: Array<String | RegExp>,
+  injectAttributes: Partial<InjectedAttributes>,
   /** An array of tags whos children should be set as raw html */
   dangerouslySetChildren: HTMLTags[]
 };

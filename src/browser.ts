@@ -37,6 +37,11 @@ function transform(node: any, key: string, options: HtmrOptions): ReactNode {
   attrs.key = key.toString();
   const props = mapAttribute(attrs, options.preserveAttributes);
 
+  // if the tag should be injected with custom attribute
+  if (options.injectAttributes.hasOwnProperty(tag)) {
+    Object.assign(props, options.injectAttributes[tag]);
+  }
+
   let children = [];
   for (let i = 0; i < node.childNodes.length; i++) {
     const childNode = node.childNodes[i];
@@ -104,6 +109,7 @@ function convertBrowser(
   const opts: HtmrOptions = {
     transform: options.transform || {},
     preserveAttributes: options.preserveAttributes || [],
+    injectAttributes: options.injectAttributes || {},
     dangerouslySetChildren: options.dangerouslySetChildren || ["style"]
   };
   const container = document.createElement('div');
